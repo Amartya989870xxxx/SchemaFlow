@@ -116,6 +116,22 @@ router.get("/raw/:id", async (req, res) => {
 });
 
 /* ============================================================
+   LIST NORMALIZED DOCS   <-- ADDED HERE
+   ============================================================ */
+router.get("/normalized", async (req, res) => {
+  try {
+    const docs = await NormalizedRecord.find()
+      .sort({ normalizedAt: -1 })
+      .limit(200);
+
+    res.json(docs);
+  } catch (err) {
+    console.error("NORMALIZED FETCH ERROR:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+/* ============================================================
    SCHEMA ROUTES
    ============================================================ */
 router.get("/schema/latest", async (req, res) => {
@@ -230,23 +246,30 @@ router.get("/uploads/recent", async (req, res) => {
   }
 });
 
+/* ============================================================
+   PHASE A: Schema History + Diff + Query APIs
+   ============================================================ */
 
-// ------- Phase A: schema history, diff, and simple query endpoints -------
-// Paste this into routes.js (before module.exports = router;)
+const escapeHtml = (s) =>
+  typeof s === "string"
+    ? s.replace(/[&<>"'`]/g, (m) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+        "`": "&#96;",
+      }[m]))
+    : s;
 
-const escapeHtml = (s) => (typeof s === 'string' ? s.replace(/[&<>"'`]/g, (m) => ({
-  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;', '`':'&#96;'
-})[m]) : s);
-
-// Utility: field-diff between two schema 'fields' objects
+// Utility to diff schema fields
 function diffSchemas(fieldsA = {}, fieldsB = {}) {
   const keysA = Object.keys(fieldsA);
   const keysB = Object.keys(fieldsB);
-  const added = keysB.filter(k => !keysA.includes(k));
-  const removed = keysA.filter(k => !keysB.includes(k));
-  const possibleChanged = keysA.filter(k => keysB.includes(k));
-  const changed = possibleChanged.filter(k => {
-    // compare present / types arrays simply (stringify)
+  const added = keysB.filter((k) => !keysA.includes(k));
+  const removed = keysA.filter((k) => !keysB.includes(k));
+  const possibleChanged = keysA.filter((k) => keysB.includes(k));
+  const changed = possibleChanged.filter((k) => {
     const a = fieldsA[k] || {};
     const b = fieldsB[k] || {};
     return JSON.stringify(a) !== JSON.stringify(b);
@@ -254,92 +277,84 @@ function diffSchemas(fieldsA = {}, fieldsB = {}) {
   return { added, removed, changed };
 }
 
-/**
- * GET /api/schema/history
- * Returns an array of schema versions (lightweight)
- */
-router.get('/schema/history', async (req, res) => {
+/* HISTORY */
+router.get("/schema/history", async (req, res) => {
   try {
-    const docs = await SchemaVersion.find().sort({ version: -1 }).limit(200).lean();
-    // normalize shape for frontend
-    const out = docs.map(d => ({
+    const docs = await SchemaVersion.find()
+      .sort({ version: -1 })
+      .limit(200)
+      .lean();
+
+    const out = docs.map((d) => ({
       version: d.version,
       createdAt: d.createdAt,
       totalSamples: d.totalSamples ?? d.totalSamples,
-      notes: d.notes ?? '',
-      fieldsCount: d.fields ? Object.keys(d.fields).length : 0
+      notes: d.notes ?? "",
+      fieldsCount: d.fields ? Object.keys(d.fields).length : 0,
     }));
+
     res.json(out);
   } catch (err) {
-    console.error('schema/history error:', err);
-    res.status(500).json({ error: err.message || 'failed to fetch schema history' });
+    console.error("schema/history error:", err);
+    res.status(500).json({ error: err.message });
   }
 });
 
-/**
- * GET /api/schema/diff/:a/:b
- * Return a simple diff (added / removed / changed fields)
- */
-router.get('/schema/diff/:a/:b', async (req, res) => {
+/* DIFF */
+router.get("/schema/diff/:a/:b", async (req, res) => {
   try {
     const a = Number(req.params.a);
     const b = Number(req.params.b);
-    if (Number.isNaN(a) || Number.isNaN(b)) return res.status(400).json({ error: 'invalid versions' });
+    if (Number.isNaN(a) || Number.isNaN(b))
+      return res.status(400).json({ error: "invalid versions" });
 
     const docA = await SchemaVersion.findOne({ version: a }).lean();
     const docB = await SchemaVersion.findOne({ version: b }).lean();
 
-    if (!docA || !docB) return res.status(404).json({ error: 'one or both schema versions not found' });
+    if (!docA || !docB)
+      return res.status(404).json({ error: "one or both schema versions not found" });
 
     const diff = diffSchemas(docA.fields || {}, docB.fields || {});
-    res.json({
-      from: a,
-      to: b,
-      diff
-    });
+
+    res.json({ from: a, to: b, diff });
   } catch (err) {
-    console.error('schema/diff error:', err);
-    res.status(500).json({ error: err.message || 'schema diff failed' });
+    console.error("schema/diff error:", err);
+    res.status(500).json({ error: err.message });
   }
 });
 
-/**
- * POST /api/query
- * Simple, safe query endpoint (first-step)
- * Body: { q: "search text", schemaVersion: 12, limit: 50 }
- * This does a case-insensitive JSON-string match against normalized.canonical
- */
-router.post('/query', async (req, res) => {
+/* QUERY */
+router.post("/query", async (req, res) => {
   try {
     const { q, schemaVersion, limit = 100 } = req.body || {};
     const filter = {};
 
     if (schemaVersion) filter.schemaVersion = Number(schemaVersion);
 
-    // fetch candidate documents (we'll filter by q in memory)
-    let docs = await NormalizedRecord.find(filter).sort({ normalizedAt: -1 }).limit(Number(limit)).lean();
+    let docs = await NormalizedRecord.find(filter)
+      .sort({ normalizedAt: -1 })
+      .limit(Number(limit))
+      .lean();
 
-    if (q && typeof q === 'string' && q.trim()) {
+    if (q && typeof q === "string" && q.trim()) {
       const qLower = q.toLowerCase();
-      docs = docs.filter(d => {
-        const canonical = d.canonical || {};
-        return JSON.stringify(canonical).toLowerCase().includes(qLower);
-      });
+      docs = docs.filter((d) =>
+        JSON.stringify(d.canonical || {}).toLowerCase().includes(qLower)
+      );
     }
 
-    // respond with safe lightweight preview
-    const out = docs.map(d => ({
+    const out = docs.map((d) => ({
       _id: d._id,
       schemaVersion: d.schemaVersion,
       normalizedAt: d.normalizedAt,
       preview: JSON.stringify(d.canonical || {}).slice(0, 400),
-      canonical: d.canonical // include full canonical; front can choose to omit or show
+      canonical: d.canonical,
     }));
 
     res.json({ ok: true, total: out.length, results: out });
   } catch (err) {
-    console.error('query error:', err);
-    res.status(500).json({ error: err.message || 'query failed' });
+    console.error("query error:", err);
+    res.status(500).json({ error: err.message });
   }
 });
 
