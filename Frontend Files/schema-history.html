@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SchemaFlow — Schema History</title>
+
+  <!-- Shared navbar + theme using dashboard.css -->
+  <link rel="stylesheet" href="dashboard.css" />
+
+  <!-- Page-specific CSS -->
+  <link rel="stylesheet" href="schema-history.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">SchemaFlow</a>
+    <nav class="navlinks">
+      <a href="index.html">Home</a>
+      <a href="upload.html">Upload</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="schemas.html">Schemas</a>
+      <a href="schema-history.html" class="active">History</a>
+      <a href="records.html">Records</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="panel" style="max-width:1100px;margin:auto;">
+      <h2>Schema Version History</h2>
+
+      <table class="history-table">
+        <thead>
+          <tr>
+            <th>Version</th>
+            <th>Created</th>
+            <th>Fields</th>
+            <th>Samples</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="historyBody"></tbody>
+      </table>
+    </div>
+
+    <div class="panel" id="diffPanel" style="max-width:1100px;margin:30px auto; display:none;">
+      <h2>Schema Diff</h2>
+      <p id="diffTitle" class="diff-title"></p>
+
+      <div class="diff-container">
+        <div>
+          <h3>Added Fields</h3>
+          <pre id="addedFields"></pre>
+        </div>
+
+        <div>
+          <h3>Removed Fields</h3>
+          <pre id="removedFields"></pre>
+        </div>
+
+        <div>
+          <h3>Changed Fields</h3>
+          <pre id="changedFields"></pre>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="schema-history.js"></script>
+  <script>
+  const links = document.querySelectorAll(".navlinks a");
+  links.forEach(a => {
+    if (a.href.includes(location.pathname)) {
+      a.classList.add("active");
+    }
+  });
+</script>
+</body>
+</html>

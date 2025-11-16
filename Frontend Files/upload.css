@@ -1,0 +1,135 @@
+/* ===== Dark Theme Variables ===== */
+:root {
+  --bg: #0c0c0c;
+  --panel: #111315;
+  --card: #151719;
+  --text: #eaeaea;
+  --muted: #9ea2a5;
+  --accent: #3edfb6;
+  --border: rgba(255,255,255,0.06);
+}
+
+/* Reset (safe, local to upload.html only via container) */
+.upload-page * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, sans-serif;
+}
+
+/* Page wrapper */
+.upload-page {
+  background: var(--bg);
+  min-height: calc(100vh - 80px); /* ignore navbar height */
+  padding-top: 60px;              /* clean spacing */
+  color: var(--text);
+}
+
+/* Upload Panel */
+.upload-wrapper {
+  width: 60%;
+  margin: 0 auto;      /* <— centers perfectly */
+  margin-top: 20px;    /* small breathing space */
+  padding: 42px;
+  border-radius: 20px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  box-shadow: 0 12px 55px rgba(0,0,0,0.55);
+}
+
+.upload-wrapper h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 26px;
+  color: #fff;
+}
+
+/* File Selector Row */
+.file-input-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+#hiddenFileInput {
+  display: none;
+}
+
+#fileSelectorBtn {
+  background: rgba(255,255,255,0.06);
+  padding: 12px 26px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+#fileSelectorBtn:hover {
+  background: rgba(255,255,255,0.14);
+}
+
+#selectedFileName {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Metadata Label */
+.meta-label {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+/* Metadata Box */
+#metadataBox {
+  width: 100%;
+  min-height: 120px;
+  padding: 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: #fff;
+  resize: none;
+  font-size: 14px;
+  margin-bottom: 26px;
+}
+
+/* Upload Button */
+#uploadBtn {
+  background: var(--accent);
+  border: none;
+  padding: 13px 32px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #000;
+  transition: 0.2s ease;
+}
+
+#uploadBtn:hover {
+  opacity: 0.85;
+}
+
+/* Upload Status */
+#uploadStatus {
+  margin-top: 16px;
+  font-size: 15px;
+}
+
+.upload-success {
+  color: var(--accent);
+}
+
+.upload-error {
+  color: #ff6666;
+}
+
+/* Center the upload panel nicely */
+.upload-wrapper {
+  margin-top: 20px; /* extra softness so it doesn't touch the nav */
+}

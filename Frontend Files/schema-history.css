@@ -1,0 +1,52 @@
+/* schema-history.css */
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.history-table th {
+  text-align: left;
+  padding: 10px 6px;
+  color: var(--muted);
+  font-size: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.history-table td {
+  padding: 10px 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.history-table tr:hover {
+  background: rgba(255,255,255,0.04);
+}
+
+.diff-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.diff-container h3 {
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: var(--muted);
+}
+
+pre {
+  background: rgba(255,255,255,0.03);
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.diff-title {
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: var(--accent);
+}

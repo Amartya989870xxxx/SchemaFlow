@@ -1,0 +1,153 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, sans-serif;
+}
+
+body {
+  background: #0c0c0c;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* NAVBAR */
+.topbar {
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 70px;
+    background: transparent;
+    position: relative;
+    z-index: 10;
+}
+
+.brand {
+    font-size: 26px;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+}
+
+.navlinks a {
+    margin-left: 24px;
+    color: #d5d5d5;
+    text-decoration: none;
+    font-size: 15px;
+    transition: 0.3s ease;
+}
+
+.navlinks a:hover {
+    color: white;
+}
+
+.navlinks a.active {
+    color: #00d1b2;
+    font-weight: 600;
+}
+/* HERO SECTION */
+.hero {
+  text-align: center;
+  padding-top: 110px;
+}
+
+.hero h1 {
+  font-size: 68px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.subtitle {
+  color: #bcbcbc;
+  margin-top: 18px;
+  font-size: 18px;
+}
+
+.primary-btn {
+  margin-top: 40px;
+  padding: 14px 46px;
+  background: white;
+  border: none;
+  font-size: 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.primary-btn:hover {
+  background: #e7e7e7;
+}
+
+
+.topbar {
+    width: 100%;
+    padding: 22px 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+.brand {
+    font-size: 26px;
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.navlinks {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.navlinks a {
+    color: #d5d5d5;
+    text-decoration: none;
+    font-size: 15px;
+    transition: 0.3s ease;
+}
+
+.navlinks a:hover {
+    color: white;
+}
+
+.navlinks a.active {
+    color: #00d1b2;
+    font-weight: 600;
+}
+
+/* ICONS SECTION */
+.icons-section {
+  margin-top: 160px;
+  display: flex;
+  justify-content: center;
+  gap: 90px;
+  padding-bottom: 80px;
+}
+
+.tech-icon {
+  width: 110px;
+  opacity: 1;
+  filter: drop-shadow(0px 0px 4px rgba(255,255,255,0.15));
+  transition: transform 0.3s ease;
+}
+
+/* FLOAT ANIMATION */
+.float {
+  animation: floatAnim 3s ease-in-out infinite;
+}
+
+@keyframes floatAnim {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Icon Hover Effect */
+.tech-icon:hover {
+  transform: scale(1.15);
+}

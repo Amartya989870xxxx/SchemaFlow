@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload | SchemaFlow</title>
+
+  <!-- Navigation + general theme -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Isolated CSS for upload page -->
+  <link rel="stylesheet" href="upload.css">
+</head>
+
+<body class="upload-page">
+
+  <!-- Top Navigation Bar -->
+  <header class="topbar">
+      <a href="index.html" class="brand">SchemaFlow</a>
+      <nav class="navlinks">
+  <a href="index.html">Home</a>
+  <a href="upload.html" class="active">Upload</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="schemas.html">Schemas</a>
+  <a href="schema-history.html">History</a>
+  <a href="records.html">Records</a>
+</nav>
+</header>
+
+  <!-- Upload section -->
+   <div class="upload-page">
+  <div class="upload-wrapper">
+
+    <h2>Upload a file</h2>
+
+    <div class="file-input-row">
+      <button id="fileSelectorBtn">Select File</button>
+      <span id="selectedFileName">No file chosen</span>
+      <input type="file" id="hiddenFileInput">
+    </div>
+
+    <label class="meta-label">Optional metadata (JSON)</label>
+    <textarea id="metadataBox">{ "uploader": "you@example.com" }</textarea>
+
+    <button id="uploadBtn">Upload</button>
+    <p id="uploadStatus"></p>
+
+  </div>
+  </div>
+
+  <script src="upload.js"></script>
+  <script>
+  const links = document.querySelectorAll(".navlinks a");
+  links.forEach(a => {
+    if (a.href.includes(location.pathname)) {
+      a.classList.add("active");
+    }
+  });
+</script>
+</body>
+</html>

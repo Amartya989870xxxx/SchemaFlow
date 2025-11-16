@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchemaFlow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="topbar">
+  <div class="left"><a class="brand" href="index.html">SchemaFlow</a></div>
+  <nav class="navlinks">
+  <a href="index.html">Home</a>
+  <a href="upload.html">Upload</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="schemas.html">Schemas</a>
+  <a href="schema-history.html">History</a>
+  <a href="records.html">Records</a>
+</nav>
+</header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <h1>Build and Ship<br>Data Pipelines 10x Faster</h1>
+        <p class="subtitle">
+            SchemaFlow helps you clean, normalize, version, and analyze unstructured data with ease.
+        </p>
+
+        <a href="dashboard.html">
+            <button class="primary-btn">View Dashboard</button>
+        </a>
+    </section>
+
+    <!-- ICON STRIP -->
+    <section class="icons-section">
+
+        <img src="icons/JS.png" class="tech-icon float" alt="JavaScript">
+        <img src="icons/MongoDB.png" class="tech-icon float" alt="MongoDB">
+        <img src="icons/GitHub.png" class="tech-icon float" alt="GitHub">
+        <img src="icons/database.png" class="tech-icon float" alt="Database">
+        <img src="icons/schema.png" class="tech-icon float" alt="Schema">
+
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+  const links = document.querySelectorAll(".navlinks a");
+  links.forEach(a => {
+    if (a.href.includes(location.pathname)) {
+      a.classList.add("active");
+    }
+  });
+</script>
+</body>
+</html>

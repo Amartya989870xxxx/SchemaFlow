@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SchemaFlow — Schemas</title>
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">SchemaFlow</a>
+    <nav class="navlinks">
+  <a href="index.html">Home</a>
+  <a href="upload.html">Upload</a>
+  <a href="dashboard.html" class="active">Dashboard</a>
+  <a href="schemas.html" class="active">Schemas</a>
+  <a href="schema-history.html">History</a>
+  <a href="records.html">Records</a>
+     </nav>
+  </header>
+
+  <main class="container">
+    <div class="panel" style="max-width:1100px; margin: 0 auto;">
+      <h3>Schema Versions</h3>
+
+      <table class="list-table" id="schemaTable">
+        <thead>
+          <tr>
+            <th>Version</th>
+            <th>Fields</th>
+            <th>Created</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <div id="schemaDetails" style="margin-top:18px;"></div>
+    </div>
+  </main>
+
+  <script src="schemas.js"></script>
+  <script>
+  const links = document.querySelectorAll(".navlinks a");
+  links.forEach(a => {
+    if (a.href.includes(location.pathname)) {
+      a.classList.add("active");
+    }
+  });
+</script>
+</body>
+</html>

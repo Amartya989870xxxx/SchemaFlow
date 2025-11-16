@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SchemaFlow — Records</title>
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">SchemaFlow</a>
+    <nav class="navlinks">
+      <nav class="navlinks">
+  <a href="index.html">Home</a>
+  <a href="upload.html">Upload</a>
+  <a href="dashboard.html">Dashboard</a>
+  <a href="schemas.html">Schemas</a>
+  <a href="schema-history.html">History</a>
+      <a href="records.html" class="active">Records</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="panel" style="max-width:1100px; margin:0 auto;">
+      <h3>Search Normalized Records</h3>
+    
+      <div class="search-row">
+         <input id="query" class="records-input" type="text" placeholder="Search text...">
+
+<input id="schemaFilter" class="records-input" type="text" placeholder="Schema version">
+
+<input id="fileFilter" class="records-input" type="text" placeholder="File type (e.g., text/plain)">
+        <button id="searchBtn" class="upload-btn" style="padding:8px 18px">Search</button>
+      </div>
+
+      <table class="list-table" id="recordsTable">
+        <thead>
+          <tr><th>ID</th><th>Schema</th><th>Preview</th><th>Time</th><th></th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <div class="pagination">
+        <button id="prevPage">Previous</button>
+        <button id="nextPage">Next</button>
+      </div>
+    </div>
+  </main>
+
+   <div class="modal-bg" id="modalBg">
+    <div class="modal">
+      <span style="float:right; cursor:pointer; font-size:18px" onclick="closeModal()">✕</span>
+      <h3>Record</h3>
+      <pre id="modalContent" style="white-space:pre-wrap; color:var(--muted-2)"></pre>
+    </div>
+  </div> 
+
+  <!-- <div id="modal" class="modal">
+  <div class="modal-box">
+    <button class="close-btn" onclick="closeModal()">×</button>
+    <pre id="modalContent"></pre>
+  </div>
+</div>  -->
+
+  <script src="records.js"></script>
+  <script>
+    function closeModal(){ document.getElementById('modalBg').style.display='none'; }
+    function viewRecordFromBtn(objStr){ document.getElementById('modalBg').style.display='flex'; document.getElementById('modalContent').textContent = JSON.stringify(objStr,null,2); }
+  </script>
+  <script>
+  const links = document.querySelectorAll(".navlinks a");
+  links.forEach(a => {
+    if (a.href.includes(location.pathname)) {
+      a.classList.add("active");
+    }
+  });
+</script>
+</body>
+</html>
