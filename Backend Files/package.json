@@ -1,0 +1,33 @@
+{
+  "name": "dynamic-etl-backend",
+  "version": "1.0.0",
+  "description": "Dynamic ETL backend (Node.js + Express + MongoDB) with multi-format upload & extraction",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cheerio": "^1.1.2",
+    "cors": "^2.8.5",
+    "csv-parser": "^3.2.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.21.2",
+    "file-type": "^18.7.0",
+    "mammoth": "^1.11.0",
+    "mongodb": "^5.8.0",
+    "mongoose": "^7.8.7",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "node-cron": "^3.0.3",
+    "pdf-parse": "^1.1.4",
+    "tesseract.js": "^4.1.4",
+    "xml2js": "^0.4.23"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "author": "you",
+  "license": "MIT"
+}

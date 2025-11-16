@@ -1,0 +1,9 @@
+
+<html>
+  <head><title>Mix1 HTML</title></head>
+  <body>
+    <h1>HTML Mixed File 1</h1>
+    <p>This file contains HTML with embedded messy text.</p>
+    <pre>Random unstructured text: N/A -- ??? @@## broken line</pre>
+  </body>
+</html>
