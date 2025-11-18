@@ -270,12 +270,17 @@ Pipeline statistics.
 ```
 ---
 
-# 🤝 **Contributors**
-```
-Team AuraDevs • AuraVerse • 2025
-Amartya Majumder
-Bhumi N Deshpande
-Akash Patel
-```
+## ✨ Contributors
+
+Thanks to these awesome contributors!
+
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/Amartya989870xxxx"><img src="https://avatars.githubusercontent.com/u/140109706?s=400&u=a8fda8209719d9856465b6c26928ead0efb106da&v=4" width="80px;" alt=""/><br /><sub><b>@anmol53mahajan</b></sub></a></td>
+    <td align="center"><a href="https://github.com/bhumindeshpande8-spec"><img src="https://avatars.githubusercontent.com/u/224833352?v=4" width="80px;" alt=""/><br /><sub><b>@KartikGupta2007</b></sub></a></td>
+    <td align="center"><a href="https://github.com/akashpatel112005-hub"><img src="https://avatars.githubusercontent.com/u/224901651?v=4" width="80px;" alt=""/><br /><sub><b>@code-with-suraj-dotcom</b></sub></a></td>
+  </tr>
+</table>
+
 ---
 
